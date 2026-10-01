@@ -106,6 +106,7 @@
     border: none;
   }
 </style>
+<script src="https://cdn.payoak.net/v1/payoak-button.min.js" defer></script>
 </head>
 <body>
   <div id="formWrap">
@@ -125,10 +126,16 @@
       <label>Amount
         <input type="number" id="amount" placeholder="0.00" min="0" step="0.01" required>
       </label>
-      <button type="submit">Pay</button>
+      <div style="margin-top: 26px" >
+        <payoak-button endpoint="https://checkout-be-jxj8.onrender.com">
+        </payoak-button> 
+      </div>
+       
+      <!-- <button type="submit">Pay</button> -->
     </form>
 
     <div id="error"></div>
+    <img />
   </div>
 
   <iframe id="checkoutFrame" title="Checkout" allow="clipboard-write; clipboard-read; payment"></iframe>
