@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Customer Embed - Checkout Test</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="embed.css">
+</head>
+<body>
+  <nav><a href="index.html">Checkout</a><a class="active" href="customer.html">Customer embed</a><a href="merchant.html">Merchant embed</a></nav>
+  <div id="panel"><p id="status">Loading...</p><div id="error"></div></div>
+  <iframe id="embedFrame" title="Customer Embed" allow="clipboard-write; clipboard-read"></iframe>
+  <script src="embed-common.js"></script>
+  <script>
+    const panel = document.getElementById("panel");
+    const frame = document.getElementById("embedFrame");
+    const statusEl = document.getElementById("status");
+    const errorEl = document.getElementById("error");
+    function fail(message) { statusEl.textContent = ""; errorEl.innerHTML = message; }
+
+    const session = loadSession();
+    if (!session?.transactionUrl) {
+      fail('No transaction yet. Create one on the <a href="index.html">Checkout</a> page first.');
+    } else {
+      // transactionUrl is the customer page PayOak returned when the checkout was created.
+      try { openInFrame(panel, frame, session.transactionUrl); } catch (e) { fail(e.message); }
+    }
+  </script>
+</body>
+</html>
