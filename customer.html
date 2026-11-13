@@ -22,7 +22,8 @@
     const session = loadSession();
     if (!session?.transactionUrl) {
       fail('No transaction yet. Create one on the <a href="index.html">Checkout</a> page first.');
-    } else {
+    } else {console.log(session.transactionUrl);
+    
       // transactionUrl is the customer page PayOak returned when the checkout was created.
       try { openInFrame(panel, frame, session.transactionUrl); } catch (e) { fail(e.message); }
     }
