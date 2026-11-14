@@ -20,12 +20,10 @@
     function fail(message) { statusEl.textContent = ""; errorEl.innerHTML = message; }
 
     (async () => {
-      const session = loadSession();
-      const id = new URLSearchParams(location.search).get("session") || session?.checkoutSessionId;
-      if (!id) return fail('No transaction yet. Create one on the <a href="index.html">Checkout</a> page first.');
       try {
-        // The embed link is single-use and short-lived, so mint a fresh one on every load.
-        const result = await postJson("/checkout/merchantEmbedUrl", { checkoutSessionId: String(id) });
+        // The landing page for the whole merchant (every API transaction, dispute and payout).
+        // The link is single-use and short-lived, so mint a fresh one on every load.
+        const result = await postJson("/checkout/merchantEmbedUrl", {});
         openInFrame(panel, frame, result.data.embedUrl);
       } catch (e) {
         fail(e instanceof Error ? e.message : "Unable to open the merchant page");
